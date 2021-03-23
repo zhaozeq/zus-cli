@@ -11,10 +11,15 @@ zus-cli command line utility for react on **[zus-cli](https://github.com/zhaozeq
 npm install zus-cli -g
 
 ## create your project
-zus-cli project-name react
-cd project-name
-npm run dll
-npm run dev
+$ zus init project-name
+$ cd project-name
+$ npm run dev
+
+## start server
+$ zus server
+
+## build project
+$ zus build
 ```
 
 ### LICENSE
