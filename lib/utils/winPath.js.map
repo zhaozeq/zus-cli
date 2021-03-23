@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../src/utils/winPath.js"],"names":["path","replace"],"mappings":";;;;;;;AACe,kBAAUA,IAAV,EAAgB;AAC7B,SAAOA,IAAI,CAACC,OAAL,CAAa,KAAb,EAAoB,GAApB,CAAP;AACD","sourcesContent":["\nexport default function (path) {\n  return path.replace(/\\\\/g, '/');\n}\n"],"file":"winPath.js"}

@@ -1,0 +1,41 @@
+{
+  // 使用 IntelliSense 了解相关属性。
+  // 悬停以查看现有属性的描述。
+  // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      // 语言
+      "type": "node",
+
+      // 是调试模式，还是附着到已运行的程序上
+      "request": "launch",
+
+      // 该配置项的名字
+      "name": "Launch Program",
+
+      // 程序的绝对路径
+      "program": "${workspaceFolder}/lib/index.js",
+
+      // 调试之前要做的任务名
+      "preLaunchTask": "build",
+
+      // 如果存在SourceMap就使用
+      "sourceMaps": true,
+
+      // 是否启动后自动停止程序
+      "stopOnEntry": false,
+
+      // 生成的代码中，如果无法映射回源代码，就自动单步执行
+      "smartStep": true,
+
+      "outFiles": ["${workspaceRoot}/lib/**"]
+    },
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Attach",
+      "port": 5858
+    }
+  ]
+}
