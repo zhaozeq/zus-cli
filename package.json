@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/zhaozeq"
+    "url": "https://github.com/zhaozeq/zus-cli"
   },
   "homepage": "https://github.com/zhaozeq",
   "author": "zhaozeqing",
