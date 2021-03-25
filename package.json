@@ -1,6 +1,6 @@
 {
   "name": "zus-cli",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "description": "Auto generate project template for react/vue/...",
   "main": "lib/index.js",
   "repository": {
