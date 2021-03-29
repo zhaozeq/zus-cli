@@ -20,7 +20,6 @@ export default function runDev(opts = {}) {
   const babel = resolve(__dirname, './utils/babel/babel.js');
   const paths = getPaths(cwd);
 
-  
   // register babel for config files
   registerBabel(babel, {
     cwd,
@@ -77,6 +76,7 @@ export default function runDev(opts = {}) {
   //   })
   // )
   webpack({
+    base: config.publicPath,
     webpackConfig,
     proxy: config.proxy || {},
     beforeServer(devServer) {

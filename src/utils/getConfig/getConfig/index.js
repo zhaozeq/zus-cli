@@ -15,7 +15,7 @@ function makeArray(item) {
 /**
  * 链式生成webpack配置
  */
-export default function(opts) {
+export default function (opts) {
   const { cwd } = opts;
   const isDev = process.env.NODE_ENV === 'development';
 
@@ -139,10 +139,7 @@ export default function(opts) {
   };
 
   if (opts.disableDynamicImport) {
-    babelOpts.plugins = [
-      ...(babelOpts.plugins || []),
-      require.resolve('babel-plugin-dynamic-import-node'),
-    ];
+    babelOpts.plugins = [...(babelOpts.plugins || []), require.resolve('babel-plugin-dynamic-import-node')];
   }
 
   // module -> eslint
@@ -228,18 +225,14 @@ export default function(opts) {
       errorFormatter(error, colors) {
         const messageColor = error.severity === 'warning' ? colors.bold.yellow : colors.bold.red;
         return (
-          colors.grey('[tsl] ')
-          + messageColor(error.severity.toUpperCase())
-          + (error.file === ''
+          colors.grey('[tsl] ') +
+          messageColor(error.severity.toUpperCase()) +
+          (error.file === ''
             ? ''
-            : messageColor(' in ')
-              + colors.bold.cyan(
-                `${relative(cwd, join(error.context, error.file))}(${error.line},${
-                  error.character
-                })`,
-              ))
-          + EOL
-          + messageColor(`      TS${error.code}: ${error.content}`)
+            : messageColor(' in ') +
+              colors.bold.cyan(`${relative(cwd, join(error.context, error.file))}(${error.line},${error.character})`)) +
+          EOL +
+          messageColor(`      TS${error.code}: ${error.content}`)
         );
       },
       ...(opts.typescript || {}),
@@ -270,31 +263,25 @@ export default function(opts) {
 
   // plugins -> ignore moment locale
   if (opts.ignoreMomentLocale) {
-    webpackConfig
-      .plugin('ignore-moment-locale')
-      .use(require('webpack/lib/IgnorePlugin'), [/^\.\/locale$/, /moment$/]);
+    webpackConfig.plugin('ignore-moment-locale').use(require('webpack/lib/IgnorePlugin'), [/^\.\/locale$/, /moment$/]);
   }
 
   // plugins -> analyze
   if (process.env.ANALYZE) {
-    webpackConfig
-      .plugin('bundle-analyzer')
-      .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin, [
-        {
-          analyzerMode: 'server',
-          analyzerPort: process.env.ANALYZE_PORT || 8888,
-          openAnalyzer: true,
-          // generate stats file while ANALYZE_DUMP exist
-          generateStatsFile: !!process.env.ANALYZE_DUMP,
-          statsFilename: process.env.ANALYZE_DUMP || 'stats.json',
-        },
-      ]);
+    webpackConfig.plugin('bundle-analyzer').use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin, [
+      {
+        analyzerMode: 'server',
+        analyzerPort: process.env.ANALYZE_PORT || 8888,
+        openAnalyzer: true,
+        // generate stats file while ANALYZE_DUMP exist
+        generateStatsFile: !!process.env.ANALYZE_DUMP,
+        statsFilename: process.env.ANALYZE_DUMP || 'stats.json',
+      },
+    ]);
   }
 
   if (process.env.DUPLICATE_CHECKER) {
-    webpackConfig
-      .plugin('duplicate-package-checker')
-      .use(require('duplicate-package-checker-webpack-plugin'));
+    webpackConfig.plugin('duplicate-package-checker').use(require('duplicate-package-checker-webpack-plugin'));
   }
 
   if (process.env.FORK_TS_CHECKER) {
@@ -331,9 +318,7 @@ export default function(opts) {
 
   if (!process.env.__FROM_UMI_TEST) {
     // filter `Conflicting order between` warning
-    webpackConfig
-      .plugin('filter-css-conflicting-warnings')
-      .use(require('./FilterCSSConflictingWarning').default);
+    webpackConfig.plugin('filter-css-conflicting-warnings').use(require('./FilterCSSConflictingWarning').default);
 
     // plugins -> friendly-errors
     const { CLEAR_CONSOLE = 'none' } = process.env;
@@ -367,16 +352,14 @@ export default function(opts) {
   }
 
   if (opts.chainConfig) {
-    assert(
-      typeof opts.chainConfig === 'function',
-      `opts.chainConfig should be function, but got ${opts.chainConfig}`,
-    );
+    assert(typeof opts.chainConfig === 'function', `opts.chainConfig should be function, but got ${opts.chainConfig}`);
     opts.chainConfig(webpackConfig);
   }
   let config = webpackConfig.toConfig();
   if (process.env.SPEED_MEASURE) {
     const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
-    const smpOption = process.env.SPEED_MEASURE === 'CONSOLE'
+    const smpOption =
+      process.env.SPEED_MEASURE === 'CONSOLE'
         ? { outputFormat: 'human', outputTarget: console.log }
         : {
             outputFormat: 'json',

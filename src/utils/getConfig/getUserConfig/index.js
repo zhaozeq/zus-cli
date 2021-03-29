@@ -28,11 +28,7 @@ function throwError(msg) {
 
 function printError(messages) {
   if (devServer) {
-    devServer.sockWrite(
-      devServer.sockets,
-      'errors',
-      typeof messages === 'string' ? [messages] : messages,
-    );
+    devServer.sockWrite(devServer.sockets, 'errors', typeof messages === 'string' ? [messages] : messages);
   }
 }
 
@@ -62,9 +58,7 @@ function merge(oldObj, newObj) {
 
 function replaceNpmVariables(value, pkg) {
   if (typeof value === 'string') {
-    return value
-      .replace('$npm_package_name', pkg.name)
-      .replace('$npm_package_version', pkg.version);
+    return value.replace('$npm_package_name', pkg.name).replace('$npm_package_version', pkg.version);
   } else {
     return value;
   }
@@ -92,7 +86,7 @@ export default function getUserConfig(opts = {}) {
 
   assert(
     !(existsSync(rcFile) && existsSync(jsRCFile)),
-    `${configFile} file and ${configFile}.js file can not exist at the same time.`,
+    `${configFile} file and ${configFile}.js file can not exist at the same time.`
   );
 
   let config = {};
@@ -102,7 +96,7 @@ export default function getUserConfig(opts = {}) {
   if (existsSync(jsRCFile)) {
     // no cache
     delete require.cache[jsRCFile];
-    config = require(jsRCFile) // eslint-disable-line
+    config = require(jsRCFile); // eslint-disable-line
     if (config.default) {
       config = config.default;
     }
@@ -197,11 +191,9 @@ export default function getUserConfig(opts = {}) {
             const { name, onChange } = plugin;
             if (!isEqual(newConfig[name], config[name])) {
               debug(
-                `Config ${name} changed, from ${JSON.stringify(
-                  config[name],
-                )} to ${JSON.stringify(newConfig[name])}`,
+                `Config ${name} changed, from ${JSON.stringify(config[name])} to ${JSON.stringify(newConfig[name])}`
               );
-(onChange || restart.bind(null, `${name} changed`)).call(null, {
+              (onChange || restart.bind(null, `${name} changed`)).call(null, {
                 name,
                 val: config[name],
                 newVal: newConfig[name],

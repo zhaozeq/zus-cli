@@ -11,7 +11,6 @@ export default function(opts = {}) {
   return getConfig({
     cwd,
     ...config,
-
     entry: getEntry({
       cwd: paths.appDirectory,
       entry: entry || config.entry,
